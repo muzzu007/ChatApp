@@ -1,16 +1,21 @@
-import express from 'express';
-import "dotenv/config";
-import User from './models/user.model.js';
-import { connectDB } from './lib/db.js';
-import {clerkMiddleware} from "@clerk/express";
+import express from "express";
 import cors from "cors";
+
+import "dotenv/config";
+
 import fs from "fs";
 import path from "path";
-import job from "./lib/cron.js"
 
-const app = express();
+import { clerkMiddleware } from "@clerk/express";
+
+import User from "./models/user.model.js";
+import { connectDB } from "./lib/db.js";
+import job from "./lib/cron.js";
+
 const PORT = process.env.PORT;
 const FRONTEND_URL = process.env.FRONTEND_URL;
+
+const app = express();
 
 const publicDir = path.join(process.cwd(), "public");
 
