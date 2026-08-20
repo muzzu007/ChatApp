@@ -4,11 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-<<<<<<< HEAD
     "build": "rm -rf dist && cp-R src dist",
-=======
-    "build":"rm -rf dist && cp -R src dist",
->>>>>>> 056a3faa1dfd0ee01695722d82cb319135f62501
     "dev": "nodemon src/index.js",
     "start": "node src/index.js"
   },
