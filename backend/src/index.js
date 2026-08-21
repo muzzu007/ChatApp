@@ -5,6 +5,7 @@ import "dotenv/config";
 
 import fs from "fs";
 import path from "path";
+import clerkWebhook from "./webhooks/clerk.webhook.js";
 
 import { clerkMiddleware } from "@clerk/express";
 
@@ -27,6 +28,8 @@ app.use(cors({
 
 
 app.use(clerkMiddleware());
+
+app.USE("/api/webhooks/clerk", express.raw({ type: "application/json"}), clerkWebhook)
 
 app.get("/health", (req,res) => {
     res.status(200).json({ok: true});
