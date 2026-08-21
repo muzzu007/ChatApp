@@ -29,7 +29,7 @@ app.use(cors({
 
 app.use(clerkMiddleware());
 
-app.USE("/api/webhooks/clerk", express.raw({ type: "application/json"}), clerkWebhook)
+app.use("/api/webhooks/clerk", express.raw({ type: "application/json"}), clerkWebhook)
 
 app.get("/health", (req,res) => {
     res.status(200).json({ok: true});
