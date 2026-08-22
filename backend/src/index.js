@@ -10,9 +10,13 @@ import clerkWebhook from "./webhooks/clerk.webhook.js";
 import { clerkMiddleware } from "@clerk/express";
 
 import User from "./models/user.model.js";
+import authRoutes from "./routes/auth.route.js";
+import authRoutes from "./routes/message.route.js";
+
+import {app, server} from "./lib/socket.js"
 import { connectDB } from "./lib/db.js";
 import job from "./lib/cron.js";
-const app = express();
+
 
 const PORT = process.env.PORT;
 const FRONTEND_URL = process.env.FRONTEND_URL;
@@ -35,6 +39,9 @@ app.get("/health", (req,res) => {
     res.status(200).json({ok: true});
 });
 
+app.use("/api/auth", authRoutes);
+app.use("/api/message", messageRoutes);
+
 if(fs.existsSync(publicDir)){
     app.use(express.static(publicDir))
     app.get("/{*any}", (req,res,next) =>{
@@ -44,8 +51,7 @@ if(fs.existsSync(publicDir)){
 }
 
 
-
-app.listen(PORT, ()=>{
+server.listen(PORT, ()=>{
     connectDB();
     console.log("Server is up and running on port 3000");
     if(process.env.NODE_ENV === "production") job.start();
